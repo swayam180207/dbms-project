@@ -1,0 +1,50 @@
+erDiagram
+    FARMERS ||--o{ FARMS : "owns"
+    FARMS ||--o{ CERTIFICATION_APPLICATIONS : "applies for"
+    CERTIFICATION_APPLICATIONS ||--o{ INSPECTIONS : "is inspected in"
+    CERTIFICATION_APPLICATIONS ||--o| CERTIFICATES : "results in"
+
+    FARMERS {
+        NUMBER farmer_id PK
+        VARCHAR2 farmer_name
+        VARCHAR2 phone UK
+        VARCHAR2 email UK
+        VARCHAR2 address
+        DATE registered_on
+    }
+
+    FARMS {
+        NUMBER farm_id PK
+        NUMBER farmer_id FK
+        VARCHAR2 farm_name
+        VARCHAR2 location
+        NUMBER area_acres
+        VARCHAR2 soil_type
+    }
+
+    CERTIFICATION_APPLICATIONS {
+        NUMBER application_id PK
+        NUMBER farm_id FK
+        DATE application_date
+        VARCHAR2 status
+        VARCHAR2 requested_cert_type
+    }
+
+    INSPECTIONS {
+        NUMBER inspection_id PK
+        NUMBER application_id FK
+        VARCHAR2 inspector_name
+        DATE inspection_date
+        VARCHAR2 findings
+        NUMBER compliance_score
+        VARCHAR2 result
+    }
+
+    CERTIFICATES {
+        NUMBER certificate_id PK
+        NUMBER application_id FK
+        VARCHAR2 certificate_number UK
+        DATE issue_date
+        DATE expiry_date
+        VARCHAR2 certificate_status
+    }
